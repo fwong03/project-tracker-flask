@@ -168,4 +168,4 @@ if __name__ == "__main__":
     # To be tidy, we'll close our database connection -- though, since this
     # is where our program ends, we'd quit anyway.
 
-    db.session.close()
+    # db.session.close()
