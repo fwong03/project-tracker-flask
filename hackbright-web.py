@@ -11,9 +11,13 @@ def get_student():
 
     github = request.args.get('github', 'jhacks')
     first, last, github = hackbright.get_student_by_github(github)
+
+    report_card = hackbright.get_report_card(github)
+
     html = render_template("student_info.html", first=first, 
                             last=last, 
-                            github=github)
+                            github=github,
+                            report_card=report_card)
     return html
 
 
@@ -41,6 +45,7 @@ def add_confirm():
 
     return render_template("add_confirmation.html", firstname=fname,
                             lastname=lname, github=ghub)
+
 
 
 if __name__ == "__main__":

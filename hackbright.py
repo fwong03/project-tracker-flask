@@ -109,10 +109,30 @@ def get_grades_by_title(title):
         """
     db_cursor = db.session.execute(QUERY, {'title': title})
     rows = db_cursor.fetchall()
+    
     for row in rows:
         print "Student %s received grade of %s for project %s" % (
             row[0], row[1], title)
     return rows
+
+def get_report_card(github):
+    """Get a list of projects and grades per a student github"""
+
+    QUERY = """
+        SELECT project_title, grade
+        FROM grades
+        WHERE student_github = :github
+        """
+
+    db_cursor = db.session.execute(QUERY, {'github': github})
+    rows = db_cursor.fetchall()
+    
+    print "Github: %s" % github
+    for row in rows:
+        print "Project: %s, Grade: %r" % (row[0], row[1])
+    
+    return rows        
+
 
 
 def handle_input():
@@ -156,6 +176,10 @@ def handle_input():
         elif command == "project_grades":
             title = args[0]
             get_grades_by_title(title)
+
+        elif command == "report_card":
+            github = args[0]
+            get_report_card(github)
 
 
 
